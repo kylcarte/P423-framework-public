@@ -8,7 +8,7 @@
 ;;   generate-x86-64  l-41 -> ()
 
 (p423-grammars
- (l-01
+ (l01-verify-scheme
   (start Prog)
   (Prog
    (letrec ((Label (lambda () Tail)) *) Tail))
@@ -26,7 +26,7 @@
    Reg
    FVar))
 
- (l-37
+ (l37-expose-frame-var
   (%remove
    FVar)
   (%rename
@@ -35,7 +35,7 @@
    (Disp
     (disp Reg Int))))
 
- (l-41
+ (l41-flatten-program
   (%remove
    Prog
    Tail)

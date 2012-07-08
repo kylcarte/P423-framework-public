@@ -1,18 +1,13 @@
 {-# LANGUAGE StandaloneDeriving #-}
 
-module FrameworkHs.GenGrammars.L37 where
+module FrameworkHs.GenGrammars.L41FlattenProgram where
 
 import StringTable.Atom
 import Data.Int
 import FrameworkHs.Prims
 import FrameworkHs.Helpers
 
-data Prog
-  = Letrec [(Label,Tail)] Tail
-data Tail
-  = App Triv
-  | Begin [Effect] Tail
-data Effect
+data Statement
   = Set Var Triv
   | OpSet Var Binop Triv Triv
 data Triv
@@ -24,7 +19,13 @@ data Var
   | Disp Disp
 data Disp
   = DispD Reg Int
+data Prog
+  = Code [Statement] Statement
+  | Jump Triv
 
+instance PP Prog where
+  pp (Code l s) = (ppSexp ("code" : ((map pp l) ++ [(pp s)])))
+  pp (Jump t) = (ppSexp ["jump",(pp t)])
 instance PP Disp where
   pp (DispD r i) = (ppSexp ["disp",(pp r),(pp i)])
 instance PP Var where
@@ -34,27 +35,14 @@ instance PP Triv where
   pp (Var v) = (pp v)
   pp (Int i) = (pp i)
   pp (Label l) = (pp l)
-instance PP Effect where
+instance PP Statement where
   pp (Set v t) = (ppSexp ["set!",(pp v),(pp t)])
   pp (OpSet v b t t2) = (ppSexp ["op-set!",(pp v),(ppSexp [(pp b),(pp t),(pp t2)])])
-instance PP Tail where
-  pp (App t) = (ppSexp ["app",(pp t)])
-  pp (Begin l t) = (ppSexp ("begin" : ((map pp l) ++ [(pp t)])))
-instance PP Prog where
-  pp (Letrec l t) = (ppSexp ["letrec",(map (\(l,t) -> (ppSexp [(pp l),(ppSexp ["lambda",(ppSexp []),(pp t)])])) l),(pp t)])
 
-deriving instance Read Prog
-deriving instance Show Prog
-deriving instance Eq Prog
-deriving instance Ord Prog
-deriving instance Read Tail
-deriving instance Show Tail
-deriving instance Eq Tail
-deriving instance Ord Tail
-deriving instance Read Effect
-deriving instance Show Effect
-deriving instance Eq Effect
-deriving instance Ord Effect
+deriving instance Read Statement
+deriving instance Show Statement
+deriving instance Eq Statement
+deriving instance Ord Statement
 deriving instance Read Triv
 deriving instance Show Triv
 deriving instance Eq Triv
@@ -67,3 +55,7 @@ deriving instance Read Disp
 deriving instance Show Disp
 deriving instance Eq Disp
 deriving instance Ord Disp
+deriving instance Read Prog
+deriving instance Show Prog
+deriving instance Eq Prog
+deriving instance Ord Prog

@@ -1,6 +1,6 @@
 (import (Framework match) (Framework prims))
 
-(define verify-grammar:l-37
+(define verify-grammar:l01-verify-scheme
   (lambda (x)
     (define Prog
       (lambda (x)
@@ -35,12 +35,7 @@
       (lambda (x)
         (match x
           [,e (guard (not [Reg e])) #f]
-          [,e (guard (not [Disp e])) #f]
+          [,e (guard (not [FVar e])) #f]
           [,e (invalid-expr 'Var e)])))
-    (define Disp
-      (lambda (x)
-        (match x
-          [(disp ,(Reg -> x1) ,(Int -> x2)) (any x2 x1)]
-          [,e (invalid-expr 'Disp e)])))
     (let ([res (Prog x)])
-      (if res (errorf 'verify-grammar:l-37 res) x))))
+      (if res (errorf 'verify-grammar:l01-verify-scheme res) x))))
