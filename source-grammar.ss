@@ -6,7 +6,7 @@
 ;;   generate-x86-64
 
 (p423-grammars
- (l-01
+ (l01-verify-scheme
   (start Prog)
   (Prog
    (begin Statement * Statement))

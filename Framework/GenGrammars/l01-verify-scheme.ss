@@ -1,6 +1,6 @@
 (import (Framework match) (Framework prims))
 
-(define verify-grammar:l-01
+(define verify-grammar:l01-verify-scheme
   (lambda (x)
     (define Prog
       (lambda (x)
@@ -28,4 +28,4 @@
           [,e (guard (not [Reg e])) #f]
           [,e (invalid-expr 'Var e)])))
     (let ([res (Prog x)])
-      (if res (errorf 'verify-grammar:l-01 res) x))))
+      (if res (errorf 'verify-grammar:l01-verify-scheme res) x))))

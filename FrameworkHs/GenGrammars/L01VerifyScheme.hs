@@ -1,6 +1,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 
-module FrameworkHs.GenGrammars.L01 where
+module FrameworkHs.GenGrammars.L01VerifyScheme where
 
 import StringTable.Atom
 import Data.Int
