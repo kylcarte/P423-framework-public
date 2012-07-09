@@ -44,8 +44,9 @@ module FrameworkHs.Helpers
   , parseInt32
   , parseInt64
   , catchExc
-  , verifyInt32
-  , verifyInt64
+  , isInt32
+  , isInt64
+  , isUInt6
   ) where
 
 import Prelude hiding (LT, EQ, GT)
@@ -362,15 +363,14 @@ catchExc m1 m2 = case m1 of
   Left e -> m2
   Right a  -> m1
 
-verifyInt32 :: (Integral a, Show a) => a -> Exc Int
-verifyInt32 i = if (((- (2 ^ 31)) <= i) && (i <= ((2 ^ 31) - 1)))
-                   then return $ fromIntegral i
-                   else failure ("Out of Int32 range: " ++ show i)
+inBitRange :: Int -> Int -> Bool
+inBitRange r i = (((- (2 ^ (r-1))) <= i) && (i <= ((2 ^ (r-1)) - 1)))
 
-verifyInt64 :: (Integral a, Show a) => a -> Exc Int
-verifyInt64 i = if (((- (2 ^ 63)) <= i) && (i <= ((2 ^ 63) - 1)))
-                   then return $ fromIntegral i
-                   else failure ("Out of Int64 range: " ++ show i)
+isInt32 = inBitRange 32
+isInt64 = inBitRange 64
+
+isUInt6 :: Int -> Bool
+isUInt6 i = (0 <= i) && (i <= 63)
 
 class SuffixTerm a where
   extractSuffix :: a -> Int
