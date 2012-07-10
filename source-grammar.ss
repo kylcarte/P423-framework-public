@@ -11,8 +11,8 @@
   (Prog
    (begin Statement * Statement))
   (Statement
-   (set! Var Int)
+   (set! Var Int64)
    (set! Var Var)
-   (op-set! Var (Binop Var Int))
+   (op-set! Var (Binop Var Int64))
    (op-set! Var (Binop Var Var)))
   (Var Reg)))
