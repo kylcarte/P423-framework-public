@@ -35,14 +35,15 @@ grammars : $(SRC_GRAMMAR) GrammarCompiler
 	@mkdir -p Framework{,Hs}/GenGrammars
 	$(SC) --script $(SCRIPT_DIR)/$(CG_FILE) "$(SRC_GRAMMAR)"
 
-scheme :
+scheme : grammars
 	@$(SC) $(SCRIPT_DIR)/$(SC_FILE)
 
-haskell :
+haskell : grammars
 	@$(HS) $(HS_FLAGS) $(SCRIPT_DIR)/$(HS_FILE)
 
 clean :
 	rm -f t.s t
+	rm -rf Framework{,Hs}/GenGrammars
 #	find . -name "*.o" -exec rm -f {} \;
 #	find . -name "*.hi" -exec rm -f {} \;
 
