@@ -30,12 +30,9 @@ instance PP Prog where
 deriving instance Read Prog
 deriving instance Show Prog
 deriving instance Eq Prog
-deriving instance Ord Prog
 deriving instance Read Statement
 deriving instance Show Statement
 deriving instance Eq Statement
-deriving instance Ord Statement
 deriving instance Read Var
 deriving instance Show Var
 deriving instance Eq Var
-deriving instance Ord Var
