@@ -20,7 +20,7 @@
    (op-set! Var (Binop Triv Triv)))
   (Triv
    Var
-   Int
+   Integer
    Label)
   (Var
    Reg
@@ -33,7 +33,7 @@
    (FVar -> Disp))
   (%add
    (Disp
-    (disp Reg Int))))
+    (disp Reg Integer))))
 
  (l41-flatten-program
   (%remove
