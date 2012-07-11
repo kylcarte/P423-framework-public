@@ -44,5 +44,7 @@
    (Tail -> Statement))
   (%add
    (Prog
-    (code Statement * Statement)
-    (jump Triv)))))
+    (code Statement * Statement))
+   (Statement
+    (jump Triv)
+    (label Label)))))
