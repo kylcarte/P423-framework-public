@@ -13,6 +13,6 @@
   (Statement
    (set! Var Integer)
    (set! Var Var)
-   (op-set! Var (Binop Var Integer))
-   (op-set! Var (Binop Var Var)))
+   (set! Var (Binop Var Integer))
+   (set! Var (Binop Var Var)))
   (Var Reg)))
