@@ -13,11 +13,11 @@
   (Prog
    (letrec ((Label (lambda () Tail)) *) Tail))
   (Tail
-   (app Triv)
+   (Triv)
    (begin Effect * Tail))
   (Effect
    (set! Var Triv)
-   (op-set! Var (Binop Triv Triv)))
+   (set! Var (Binop Triv Triv)))
   (Triv
    Var
    Integer
