@@ -30,10 +30,7 @@
   (%remove
    FVar)
   (%rename
-   (FVar -> Disp))
-  (%add
-   (Disp
-    (disp Reg Integer))))
+   (FVar -> Disp)))
 
  (l41-flatten-program
   (%remove
