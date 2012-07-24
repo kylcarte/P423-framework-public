@@ -16,36 +16,17 @@ parseStatement :: LispVal -> Exc Statement
 parseStatement (List [(Symbol "set!"),v1,rhs]) =
   do v1 <- parseVar v1
      case rhs of
+       IntNumber _   -> do i <- parseInt64 rhs
+                           return (Set1 v1 i)
+       Symbol _      -> do v2 <- parseVar rhs
+                           return (Set2 v1 v2)
        List [b,v2,x] -> do b  <- parseBinop b
                            v2 <- parseVar v2
                            case x of
                              IntNumber _ -> do i <- parseInt32 x
-                                               return (Set
-       IntNumber _   -> 
-       Symbol _      -> 
-
-parseStatement (List [(Symbol "set!"),v1
-                     ,List [b,v2,x@(IntNumber _)]]) =
-  do v1 <- parseVar v1
-     b  <- parseBinop b
-     v2 <- parseVar v2
-     i <- parseInt32 x
-     return (OpSet v1 b v2 i)
-parseStatement (List [(Symbol "set!"),v1
-                     ,List [b,v2,x@(Symbol _)]]) =
-  do v1 <- parseVar v1
-     b  <- parseBinop b
-     v2 <- parseVar v2
-     v3 <- parseVar x
-     return (OpSet' v1 b v2 v3)
-parseStatement (List [(Symbol "set!"),v,x@(IntNumber _)]) =
-  do v <- parseVar v
-     i <- parseInt64 x
-     return (Set v i)
-parseStatement (List [(Symbol "set!"),v,x@(Symbol _)]) =
-  do v <- parseVar v
-     v' <- parseVar x
-     return (Set' v v')
+                                               return (Set3 v1 b v2 i)
+                             Symbol _    -> do v3 <- parseVar x
+                                               return (Set4 v1 b v2 v3)
 parseStatement e = failure ("Invalid Statement: " ++ show e)
 
 parseVar :: LispVal -> Exc Var
